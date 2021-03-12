@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+  shinyproxy:
+    build: ./shinyproxy
+    # In case of error shift this shiny-docker folder to /home/basant and try again
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./shinyproxy-logs/server:/log
+      - ./shinyproxy-logs/container:/container-logs
+      - ./r_scripts1:/opt/r_scripts
+      - ./r_scripts1:/opt/r_scripts1
+
+    ports:
+      - 8080:8080
+    networks:
+      - tdc-net
+
+networks:
+  tdc-net:
+    name: tdc-net
